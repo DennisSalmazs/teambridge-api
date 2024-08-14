@@ -1,5 +1,6 @@
 package com.teambridge.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.teambridge.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -36,9 +37,11 @@ public class UserDTO {
     @NotBlank(message = "Password is a required field")
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}", message = "The password must be at least 4 characters long" +
             " and include at least 1 uppercase letter, 1 lowercase letter and 1 digit")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passWord;
 
     @NotBlank(message = "Passwords should match")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String confirmPassWord;
 
     @NotNull(message = "Please select a Gender")
