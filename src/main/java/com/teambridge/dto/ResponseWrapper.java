@@ -1,12 +1,10 @@
 package com.teambridge.dto;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class ResponseWrapper {
 
