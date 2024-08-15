@@ -57,14 +57,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void update(TaskDTO task) {
+    public void update(String taskCode, TaskDTO task) {
         // old task information
-        Optional<Task> foundTask = taskRepository.findById(task.getId());
+        Task foundTask = taskRepository.findByTaskCode(taskCode);
 
         Task convertedTask = mapperUtil.convert(task, Task.class);
-        if (foundTask.isPresent()){
-            convertedTask.setAssignedDate(foundTask.get().getAssignedDate());
-            convertedTask.setTaskStatus(task.getTaskStatus() == null ? foundTask.get().getTaskStatus() : task.getTaskStatus());
+        if (foundTask!=null){
+            convertedTask.setAssignedDate(foundTask.getAssignedDate());
+            convertedTask.setTaskStatus(task.getTaskStatus() == null ? foundTask.getTaskStatus() : task.getTaskStatus());
+            convertedTask.setTaskCode(taskCode);
+            convertedTask.setId(foundTask.getId());
+
             taskRepository.save(convertedTask);
         }
     }
@@ -101,7 +104,7 @@ public class TaskServiceImpl implements TaskService {
             TaskDTO taskDTO = mapperUtil.convert(task, TaskDTO.class);
             taskDTO.setTaskStatus(Status.COMPLETE);
             //update status in DB
-            update(taskDTO);
+            update(taskDTO.getTaskCode(), taskDTO);
         });
     }
 
