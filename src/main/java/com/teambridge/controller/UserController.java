@@ -48,6 +48,11 @@ public class UserController {
                 .ok(new ResponseWrapper("User is successfully updated"));
     }
 
-
+    @DeleteMapping("/{username}")
+    public ResponseEntity<ResponseWrapper> deleteUser(@PathVariable String username) {
+        userService.delete(username);
+        return ResponseEntity
+                .ok(new ResponseWrapper("User is successfully deleted"));
+    }
 
 }
