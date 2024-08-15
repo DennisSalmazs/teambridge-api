@@ -13,7 +13,7 @@ public interface TaskService {
     List<TaskDTO> listAllTasks();
     void save(TaskDTO taskDTO);
     void update(String taskCode, TaskDTO taskDTO);
-    void delete(Long id);
+    void delete(String taskCode);
     int totalNonCompletedTasks(String projectCode);
     int totalCompletedTasks(String projectCode);
     void deleteByProject(ProjectDTO project);

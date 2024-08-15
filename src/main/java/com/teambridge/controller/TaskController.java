@@ -2,6 +2,7 @@ package com.teambridge.controller;
 
 import com.teambridge.dto.ResponseWrapper;
 import com.teambridge.dto.TaskDTO;
+import com.teambridge.enums.Status;
 import com.teambridge.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,18 @@ public class TaskController {
                 .ok(new ResponseWrapper("Task successfully updated"));
     }
 
+    @DeleteMapping("/{taskCode}")
+    public ResponseEntity<ResponseWrapper> deleteTask(@PathVariable String taskCode) {
+        taskService.delete(taskCode);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Task successfully deleted"));
+    }
 
-
-
+    @GetMapping("/employee/pending-tasks")
+    public ResponseEntity<ResponseWrapper> employeePendingTasks() {
+        List<TaskDTO> taskDTOList = taskService.listAllTasksByStatusIsNot(Status.COMPLETE);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Pending Tasks successfully retrieved", taskDTOList));
+    }
 
 }
