@@ -42,9 +42,30 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectCode}")
-    public ResponseEntity<ResponseWrapper> updateProjectCode(@PathVariable String projectCode, @RequestBody ProjectDTO project) {
+    public ResponseEntity<ResponseWrapper> updateProject(@PathVariable String projectCode, @RequestBody ProjectDTO project) {
         projectService.update(projectCode, project);
         return ResponseEntity
                 .ok(new ResponseWrapper("Project successfully updated"));
+    }
+
+    @DeleteMapping("/{projectCode}")
+    public ResponseEntity<ResponseWrapper> deleteProject(@PathVariable String projectCode) {
+        projectService.delete(projectCode);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Project successfully deleted"));
+    }
+
+    @GetMapping("/manager/project-status")
+    public ResponseEntity<ResponseWrapper> getProjectByManager() {
+        List<ProjectDTO> projectDTOList = projectService.listAllProjectsDetails();
+        return ResponseEntity
+                .ok(new ResponseWrapper("Projects are successfully retrieved", projectDTOList));
+    }
+
+    @PutMapping("/manager/complete/{projectCode}")
+    public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable String projectCode) {
+        projectService.complete(projectCode);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Project successfully completed"));
     }
 }
