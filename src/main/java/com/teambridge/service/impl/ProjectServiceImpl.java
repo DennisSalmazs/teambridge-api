@@ -7,6 +7,7 @@ import com.teambridge.entity.User;
 import com.teambridge.enums.Status;
 import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.ProjectRepository;
+import com.teambridge.service.KeycloakService;
 import com.teambridge.service.ProjectService;
 import com.teambridge.service.TaskService;
 import com.teambridge.service.UserService;
@@ -23,12 +24,14 @@ public class ProjectServiceImpl implements ProjectService {
     private final MapperUtil mapperUtil;
     private final UserService userService;
     private final TaskService taskService;
+    private final KeycloakService keycloakService;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, MapperUtil mapperUtil, UserService userService, TaskService taskService) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, MapperUtil mapperUtil, UserService userService, TaskService taskService, KeycloakService keycloakService) {
         this.projectRepository = projectRepository;
         this.mapperUtil = mapperUtil;
         this.userService = userService;
         this.taskService = taskService;
+        this.keycloakService = keycloakService;
     }
 
 
@@ -95,7 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> listAllProjectsDetails() {
 
-        UserDTO currentUser = userService.findByUserName("harold@manager.com");
+        UserDTO currentUser = userService.findByUserName(keycloakService.getLoggedInUserName());
         User user = mapperUtil.convert(currentUser, User.class);
 
         List<Project> list = projectRepository.findAllByAssignedManager(user);
