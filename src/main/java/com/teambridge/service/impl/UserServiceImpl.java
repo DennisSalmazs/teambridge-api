@@ -3,10 +3,12 @@ package com.teambridge.service.impl;
 import com.teambridge.dto.ProjectDTO;
 import com.teambridge.dto.TaskDTO;
 import com.teambridge.dto.UserDTO;
+import com.teambridge.entity.Role;
 import com.teambridge.entity.User;
 import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.UserRepository;
 import com.teambridge.service.ProjectService;
+import com.teambridge.service.RoleService;
 import com.teambridge.service.TaskService;
 import com.teambridge.service.UserService;
 import org.springframework.context.annotation.Lazy;
@@ -22,12 +24,14 @@ public class UserServiceImpl implements UserService {
     private final MapperUtil mapperUtil;
     private final ProjectService projectService;
     private final TaskService taskService;
+    private final RoleService roleService;
 
-    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService,@Lazy TaskService taskService) {
+    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService, @Lazy TaskService taskService, RoleService roleService) {
         this.userRepository = userRepository;
         this.mapperUtil = mapperUtil;
         this.projectService = projectService;
         this.taskService = taskService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -46,6 +50,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO user) {
+        user.setRole(roleService.findByDescription(user.getRole().getDescription()));
+
         userRepository.save(mapperUtil.convert(user, User.class));
     }
 
@@ -55,6 +61,10 @@ public class UserServiceImpl implements UserService {
         User updatedUser = mapperUtil.convert(user, User.class);
         updatedUser.setId(foundUser.getId());
         updatedUser.setUserName(username);
+
+        Role role = mapperUtil.convert(roleService.findByDescription(user.getRole().getDescription()), Role.class);
+        updatedUser.setRole(role);
+
         userRepository.save(updatedUser);
     }
 

@@ -9,8 +9,10 @@ import com.teambridge.entity.User;
 import com.teambridge.enums.Status;
 import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.TaskRepository;
+import com.teambridge.service.ProjectService;
 import com.teambridge.service.TaskService;
 import com.teambridge.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,11 +26,13 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final MapperUtil mapperUtil;
     private final UserService userService;
+    private final ProjectService projectService;
 
-    public TaskServiceImpl(TaskRepository taskRepository, MapperUtil mapperUtil, UserService userService) {
+    public TaskServiceImpl(TaskRepository taskRepository, MapperUtil mapperUtil, UserService userService, @Lazy ProjectService projectService) {
         this.taskRepository = taskRepository;
         this.mapperUtil = mapperUtil;
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @Override
@@ -52,6 +56,10 @@ public class TaskServiceImpl implements TaskService {
     public void save(TaskDTO task) {
         task.setAssignedDate(LocalDate.now());
         task.setTaskStatus(Status.OPEN);
+
+        task.setAssignedEmployee(userService.findByUserName(task.getAssignedEmployee().getUserName()));
+        task.setProject(projectService.findByProjectCode(task.getProject().getProjectCode()));
+
         Task convertedTask = mapperUtil.convert(task, Task.class);
         taskRepository.save(convertedTask);
     }
@@ -67,6 +75,9 @@ public class TaskServiceImpl implements TaskService {
             convertedTask.setTaskStatus(task.getTaskStatus() == null ? foundTask.getTaskStatus() : task.getTaskStatus());
             convertedTask.setTaskCode(taskCode);
             convertedTask.setId(foundTask.getId());
+
+            convertedTask.setAssignedEmployee(mapperUtil.convert(task.getAssignedEmployee().getUserName(), User.class));
+            convertedTask.setProject(mapperUtil.convert(projectService.findByProjectCode(task.getProject().getProjectCode()), Project.class));
 
             taskRepository.save(convertedTask);
         }

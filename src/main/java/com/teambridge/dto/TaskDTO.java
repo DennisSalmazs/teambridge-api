@@ -1,5 +1,6 @@
 package com.teambridge.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.teambridge.enums.Status;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskDTO {
 
+    @JsonIgnore
     private Long id;
 
     @NotBlank(message = "Task Code is a required field")

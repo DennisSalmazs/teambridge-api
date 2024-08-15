@@ -37,4 +37,10 @@ public class RoleServiceImpl implements RoleService {
         Role role = roleRepository.findById(id).get();
         return mapperUtil.convert(role, RoleDTO.class);
     }
+
+    @Override
+    public RoleDTO findByDescription(String description) {
+        Role role = roleRepository.findByDescription(description);
+        return mapperUtil.convert(role, RoleDTO.class);
+    }
 }
