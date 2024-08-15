@@ -16,6 +16,9 @@ public class TaskDTO {
 
     private Long id;
 
+    @NotBlank(message = "Task Code is a required field")
+    private String taskCode;
+
     @NotNull(message = "Please select a Project")
     private ProjectDTO project;
 
