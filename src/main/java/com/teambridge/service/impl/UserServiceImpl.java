@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(UserDTO user) {
-        User foundUser = userRepository.findByUserNameAndIsDeleted(user.getUserName(), false); // has iD
+    public void update(String username, UserDTO user) {
+        User foundUser = userRepository.findByUserNameAndIsDeleted(username, false); // has iD
         User updatedUser = mapperUtil.convert(user, User.class);
         updatedUser.setId(foundUser.getId());
+        updatedUser.setUserName(username);
         userRepository.save(updatedUser);
     }
 
