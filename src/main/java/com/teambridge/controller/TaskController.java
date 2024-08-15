@@ -63,4 +63,17 @@ public class TaskController {
                 .ok(new ResponseWrapper("Pending Tasks successfully retrieved", taskDTOList));
     }
 
+    @GetMapping("/employee/archive")
+    public ResponseEntity<ResponseWrapper> employeeArchivedTasks() {
+        List<TaskDTO> taskDTOList = taskService.listAllTasksByStatus(Status.COMPLETE);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Archived Tasks successfully retrieved", taskDTOList));
+    }
+
+    @PutMapping("/employee/update/{taskCode}")
+    public ResponseEntity<ResponseWrapper> employeeUpdateTasks(@PathVariable String taskCode, @RequestBody TaskDTO task) {
+        taskService.update(taskCode, task);
+        return ResponseEntity
+                .ok(new ResponseWrapper("Tasks successfully updated"));
+    }
 }
