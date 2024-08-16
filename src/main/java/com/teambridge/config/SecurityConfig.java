@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/project/**").hasAuthority("Manager")
                         .requestMatchers("/api/v1/task/employee/**").hasAuthority("Employee")
                         .requestMatchers("/api/v1/task/**").hasAuthority("Manager")
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs.yaml").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
 

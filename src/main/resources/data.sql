@@ -1,7 +1,7 @@
-INSERT INTO roles(insert_date_time, insert_user_id, is_deleted, last_update_date_time, last_update_user_id, description)
-VALUES ('2022-01-05 00:00:00', 1, false, '2022-01-05 00:00:00', 1, 'Admin'),
-       ('2022-01-05 00:00:00', 1, false, '2022-01-05 00:00:00', 1, 'Manager'),
-       ('2022-01-05 00:00:00', 1, false, '2022-01-05 00:00:00', 1, 'Employee');
+INSERT INTO roles(insert_date_time, insert_user_username, is_deleted, last_update_date_time, last_update_user_username, description)
+VALUES ('2022-01-05 00:00:00', 'admin@admin.com', false, '2022-01-05 00:00:00', 'admin@admin.com', 'Admin'),
+       ('2022-01-05 00:00:00', 'admin@admin.com', false, '2022-01-05 00:00:00', 'admin@admin.com', 'Manager'),
+       ('2022-01-05 00:00:00', 'admin@admin.com', false, '2022-01-05 00:00:00', 'admin@admin.com', 'Employee');
 
 
 INSERT INTO users(insert_date_time, insert_user_username, is_deleted, last_update_date_time, last_update_user_username,
@@ -20,23 +20,23 @@ INSERT INTO projects(insert_date_time, insert_user_username, is_deleted, last_up
                      project_detail, project_status, start_date, end_date, manager_id)
 VALUES ('2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'SP00', 'Spring Core', 'Spring Core Project', 'OPEN', '2022-01-05', '2022-06-12', 2),
        ('2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'SP01', 'Spring Boot', 'Spring Boot Project', 'IN_PROGRESS', '2022-01-05', '2022-06-12', 2),
-       ('2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'SP02', 'Spring MVC', 'Spring MVC Project', 'IN_PROGRESS', '2022-01-05', '2022-06-12', 3),
-       ('2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'SP03', 'Spring Data', 'Spring Data Project', 'OPEN', '2022-01-05', '2022-06-12', 3);
+       ('2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'SP02', 'Spring MVC', 'Spring MVC Project', 'IN_PROGRESS', '2022-01-05', '2022-06-12', 3),
+       ('2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'SP03', 'Spring Data', 'Spring Data Project', 'OPEN', '2022-01-05', '2022-06-12', 3);
 
 INSERT INTO tasks(task_code, insert_date_time, insert_user_username, is_deleted, last_update_date_time, last_update_user_username, task_subject, task_detail, task_status, assigned_date, project_id, employee_id)
-VALUES ('ST00', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Dependency Injection', 'Injecting dependencies', 'OPEN', '2022-01-05', 1, 4),
-       ('ST01', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'IN_PROGRESS', '2022-01-05', 1, 4),
-       ('ST02', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Controller', 'Creating controllers', 'COMPLETE', '2022-01-05', 1, 4),
-       ('ST03', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Entity', 'Creating entities', 'OPEN', '2022-01-05', 1, 4),
-       ('ST04', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Dependency Injection', 'Injecting dependencies', 'OPEN', '2022-01-05', 2, 5),
-       ('ST05', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 2, 5),
-       ('ST06', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Controller', 'Creating controllers', 'IN_PROGRESS', '2022-01-05', 2, 5),
-       ('ST07', '2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 2, 5),
-       ('ST08', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Dependency Injection', 'Injecting dependencies', 'COMPLETE', '2022-01-05', 3, 6),
-       ('ST09', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 3, 6),
-       ('ST10', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Controller', 'Creating controllers', 'IN_PROGRESS', '2022-01-05', 3, 6),
-       ('ST11', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 3, 6),
-       ('ST12', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Dependency Injection', 'Injecting dependencies', 'COMPLETE', '2022-01-05', 4, 7),
-       ('ST13', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 4, 7),
-       ('ST14', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Controller', 'Creating controllers', 'COMPLETE', '2022-01-05', 4, 7),
-       ('ST15', '2022-01-05 00:00:00', 'john@employee.com', false, '2022-01-05 00:00:00', 'john@employee.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 4, 7);
+VALUES ('ST00','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Dependency Injection', 'Injecting dependencies', 'OPEN', '2022-01-05', 1, 4),
+       ('ST01','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'IN_PROGRESS', '2022-01-05', 1, 4),
+       ('ST02','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Controller', 'Creating controllers', 'COMPLETE', '2022-01-05', 1, 4),
+       ('ST03','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Entity', 'Creating entities', 'OPEN', '2022-01-05', 1, 4),
+       ('ST04','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Dependency Injection', 'Injecting dependencies', 'OPEN', '2022-01-05', 2, 5),
+       ('ST05','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 2, 5),
+       ('ST06','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Controller', 'Creating controllers', 'IN_PROGRESS', '2022-01-05', 2, 5),
+       ('ST07','2022-01-05 00:00:00', 'harold@manager.com', false, '2022-01-05 00:00:00', 'harold@manager.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 2, 5),
+       ('ST08','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Dependency Injection', 'Injecting dependencies', 'COMPLETE', '2022-01-05', 3, 6),
+       ('ST09','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 3, 6),
+       ('ST10','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Controller', 'Creating controllers', 'IN_PROGRESS', '2022-01-05', 3, 6),
+       ('ST11','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 3, 6),
+       ('ST12','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Dependency Injection', 'Injecting dependencies', 'COMPLETE', '2022-01-05', 4, 7),
+       ('ST13','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', '@SpringBootApplication', 'Adding @SpringBootApplication annotation', 'COMPLETE', '2022-01-05', 4, 7),
+       ('ST14','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Controller', 'Creating controllers', 'COMPLETE', '2022-01-05', 4, 7),
+       ('ST15','2022-01-05 00:00:00', 'samantha@manager.com', false, '2022-01-05 00:00:00', 'samantha@manager.com', 'Entity', 'Creating entities', 'COMPLETE', '2022-01-05', 4, 7);
