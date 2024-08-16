@@ -1,5 +1,6 @@
 package com.teambridge.controller;
 
+import com.teambridge.annotation.ExecutionTime;
 import com.teambridge.dto.ResponseWrapper;
 import com.teambridge.dto.UserDTO;
 import com.teambridge.service.UserService;
@@ -33,6 +34,7 @@ public class UserController {
             @ApiResponse(responseCode = "409", description = "Users could not be retrieved",
                     content = @Content(mediaType = "application/json"))
     })
+    @ExecutionTime
     public ResponseEntity<ResponseWrapper> getUsers() {
         List<UserDTO> userDTOList = userService.listAllUsers();
         return ResponseEntity
