@@ -5,6 +5,8 @@ import com.teambridge.dto.TaskDTO;
 import com.teambridge.dto.UserDTO;
 import com.teambridge.entity.Role;
 import com.teambridge.entity.User;
+import com.teambridge.exception.UserAlreadyExistException;
+import com.teambridge.exception.UserNotFoundException;
 import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.UserRepository;
 import com.teambridge.service.*;
@@ -47,11 +49,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findByUserName(String username) {
         User user = userRepository.findByUserNameAndIsDeleted(username, false);
+        if (user == null) {
+            throw new UserNotFoundException("User not exist");
+        }
         return mapperUtil.convert(user, UserDTO.class);
     }
 
     @Override
     public void save(UserDTO user) {
+        if (userRepository.findByUserNameAndIsDeleted(user.getUserName(), false) != null) {
+            throw new UserAlreadyExistException("User already exist");
+        }
+
         user.setRole(roleService.findByDescription(user.getRole().getDescription()));
 
 //        keycloakService.userCreate(user);

@@ -84,7 +84,7 @@ public class KeycloakServiceImpl implements KeycloakService {
             List<UserRepresentation> userRepresentations = usersResource.search(userDTO.getUserName());
 
             if (userRepresentations.isEmpty()) {
-                throw new UserNotFoundException("User does not exist.");
+                throw new UserNotFoundException("User not exist.");
             }
 
             UserRepresentation keycloakUser = userRepresentations.get(0);
