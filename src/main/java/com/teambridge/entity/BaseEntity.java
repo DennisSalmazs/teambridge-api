@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @MappedSuperclass
+@EntityListeners(BaseEntityListener.class)
 public class BaseEntity {
 
     @Id
@@ -21,28 +23,16 @@ public class BaseEntity {
     private LocalDateTime insertDateTime;
 
     @Column(updatable = false, nullable = false)
-    private Long insertUserId;
+    private String insertUserUsername;
 
     @Column(nullable = false)
     private LocalDateTime lastUpdateDateTime;
 
     @Column(nullable = false)
-    private Long lastUpdateUserId;
+    private String lastUpdateUserUsername;
 
     private Boolean isDeleted = false;
 
-    @PrePersist
-    private void onPrePersist(){
-        insertDateTime = LocalDateTime.now();
-        lastUpdateDateTime = LocalDateTime.now();
-        insertUserId = 1L;
-        lastUpdateUserId = 1L;
-    }
 
-    @PreUpdate
-    private void onPreUpdate(){
-        lastUpdateDateTime = LocalDateTime.now();
-        lastUpdateUserId = 1L;
-    }
 
 }
