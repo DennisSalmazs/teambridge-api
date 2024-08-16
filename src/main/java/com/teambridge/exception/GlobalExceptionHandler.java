@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ResponseWrapper> userNotFoundException(UserNotFoundException exception) {
+    public ResponseEntity<ExceptionWrapper> userNotFoundException(UserNotFoundException exception) {
         exception.printStackTrace(); // this will print exception details on the console
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(new ResponseWrapper(exception.getMessage(), HttpStatus.NOT_FOUND.value()));
+                .body(new ExceptionWrapper(exception.getMessage(), HttpStatus.NOT_FOUND.value()));
     }
 }
