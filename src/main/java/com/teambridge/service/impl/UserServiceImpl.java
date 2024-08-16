@@ -7,10 +7,7 @@ import com.teambridge.entity.Role;
 import com.teambridge.entity.User;
 import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.UserRepository;
-import com.teambridge.service.ProjectService;
-import com.teambridge.service.RoleService;
-import com.teambridge.service.TaskService;
-import com.teambridge.service.UserService;
+import com.teambridge.service.*;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +22,15 @@ public class UserServiceImpl implements UserService {
     private final ProjectService projectService;
     private final TaskService taskService;
     private final RoleService roleService;
+    private final KeycloakService keycloakService;
 
-    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService, @Lazy TaskService taskService, RoleService roleService) {
+    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService, @Lazy TaskService taskService, RoleService roleService, KeycloakService keycloakService) {
         this.userRepository = userRepository;
         this.mapperUtil = mapperUtil;
         this.projectService = projectService;
         this.taskService = taskService;
         this.roleService = roleService;
+        this.keycloakService = keycloakService;
     }
 
     @Override
@@ -52,6 +51,7 @@ public class UserServiceImpl implements UserService {
     public void save(UserDTO user) {
         user.setRole(roleService.findByDescription(user.getRole().getDescription()));
 
+//        keycloakService.userCreate(user);
         userRepository.save(mapperUtil.convert(user, User.class));
     }
 
