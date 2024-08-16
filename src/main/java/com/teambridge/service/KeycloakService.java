@@ -7,4 +7,6 @@ public interface KeycloakService {
     String getLoggedInUserName();
 
     void userCreate(UserDTO user);
+
+    void userUpdate(UserDTO user);
 }
