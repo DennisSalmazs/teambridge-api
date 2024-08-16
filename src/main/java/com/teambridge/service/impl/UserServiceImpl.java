@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
         if (checkIfUserCanBeDeleted(mapperUtil.convert(user, UserDTO.class))){
             user.setIsDeleted(true);
             user.setUserName(user.getUserName() + "-" + user.getId()); // so that creating user with same username is possible
+//            keycloakService.userDelete(username);
             userRepository.save(user); // save, to update object in DB
         }
     }

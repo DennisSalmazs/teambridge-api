@@ -9,4 +9,6 @@ public interface KeycloakService {
     void userCreate(UserDTO user);
 
     void userUpdate(UserDTO user);
+
+    void userDelete(String username);
 }
