@@ -9,6 +9,7 @@ import com.teambridge.mapper.MapperUtil;
 import com.teambridge.repository.UserRepository;
 import com.teambridge.service.*;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,14 +24,16 @@ public class UserServiceImpl implements UserService {
     private final TaskService taskService;
     private final RoleService roleService;
     private final KeycloakService keycloakService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService, @Lazy TaskService taskService, RoleService roleService, KeycloakService keycloakService) {
+    public UserServiceImpl(UserRepository userRepository, MapperUtil mapperUtil, @Lazy ProjectService projectService, @Lazy TaskService taskService, RoleService roleService, KeycloakService keycloakService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mapperUtil = mapperUtil;
         this.projectService = projectService;
         this.taskService = taskService;
         this.roleService = roleService;
         this.keycloakService = keycloakService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleService.findByDescription(user.getRole().getDescription()));
 
 //        keycloakService.userCreate(user);
+        user.setPassWord(passwordEncoder.encode(user.getPassWord()));
         userRepository.save(mapperUtil.convert(user, User.class));
     }
 
@@ -66,6 +70,7 @@ public class UserServiceImpl implements UserService {
         updatedUser.setRole(role);
 
 //        keycloakService.userUpdate(mapperUtil.convert(updatedUser,UserDTO.class));
+        updatedUser.setPassWord(passwordEncoder.encode(user.getPassWord()));
         userRepository.save(updatedUser);
     }
 
