@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByUserNameAndIsDeleted(user.getUserName(), false) != null) {
             throw new UserAlreadyExistException("User already exist");
         }
-
         user.setRole(roleService.findByDescription(user.getRole().getDescription()));
 
 //        keycloakService.userCreate(user);
