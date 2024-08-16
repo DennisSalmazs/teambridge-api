@@ -3,7 +3,8 @@ package com.teambridge.controller;
 import com.teambridge.dto.ProjectDTO;
 import com.teambridge.dto.ResponseWrapper;
 import com.teambridge.service.ProjectService;
-import jakarta.annotation.security.RolesAllowed;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/project")
+@Tag(name = "Project Controller", description = "Project API")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -21,6 +23,7 @@ public class ProjectController {
     }
 
     @GetMapping
+    @Operation(summary = "Get Projects")
     public ResponseEntity<ResponseWrapper> getProjects() {
         List<ProjectDTO> projectDTOList = projectService.listAllProjects();
         return ResponseEntity
@@ -28,6 +31,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{projectCode}")
+    @Operation(summary = "Get Project By Project Code")
     public ResponseEntity<ResponseWrapper> getProject(@PathVariable String projectCode) {
         ProjectDTO projectDTO = projectService.findByProjectCode(projectCode);
         return ResponseEntity
@@ -36,6 +40,7 @@ public class ProjectController {
 
     @PostMapping
 //    @RolesAllowed({"Admin","Manager"})
+    @Operation(summary = "Create Project")
     public ResponseEntity<ResponseWrapper> createProject(@RequestBody ProjectDTO projectDTO) {
         projectService.save(projectDTO);
         return ResponseEntity
@@ -44,6 +49,7 @@ public class ProjectController {
     }
 
     @PutMapping("/{projectCode}")
+    @Operation(summary = "Update Project")
     public ResponseEntity<ResponseWrapper> updateProject(@PathVariable String projectCode, @RequestBody ProjectDTO project) {
         projectService.update(projectCode, project);
         return ResponseEntity
@@ -51,6 +57,7 @@ public class ProjectController {
     }
 
     @DeleteMapping("/{projectCode}")
+    @Operation(summary = "Delete Project")
     public ResponseEntity<ResponseWrapper> deleteProject(@PathVariable String projectCode) {
         projectService.delete(projectCode);
         return ResponseEntity
@@ -58,6 +65,7 @@ public class ProjectController {
     }
 
     @GetMapping("/manager/project-status")
+    @Operation(summary = "Get Projects By Manager")
     public ResponseEntity<ResponseWrapper> getProjectByManager() {
         List<ProjectDTO> projectDTOList = projectService.listAllProjectsDetails();
         return ResponseEntity
@@ -65,6 +73,7 @@ public class ProjectController {
     }
 
     @PutMapping("/manager/complete/{projectCode}")
+    @Operation(summary = "Complete Project By Manager")
     public ResponseEntity<ResponseWrapper> managerCompleteProject(@PathVariable String projectCode) {
         projectService.complete(projectCode);
         return ResponseEntity
