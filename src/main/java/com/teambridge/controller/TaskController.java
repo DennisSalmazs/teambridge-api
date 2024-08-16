@@ -6,6 +6,7 @@ import com.teambridge.enums.Status;
 import com.teambridge.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class TaskController {
 
     @PostMapping
     @Operation(summary = "Create Task")
-    public ResponseEntity<ResponseWrapper> createTask(@RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<ResponseWrapper> createTask(@RequestBody @Valid TaskDTO taskDTO) {
         taskService.save(taskDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
